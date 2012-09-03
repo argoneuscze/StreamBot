@@ -26,6 +26,7 @@ namespace StreamBot.IRCBot
     public class Connection
     {
         public static IrcClient irc = new IrcClient();
+        private static Timer timer;
 
         public static void Create()
         {
@@ -61,7 +62,7 @@ namespace StreamBot.IRCBot
                 foreach (var channel in Settings.Channels)
                     irc.RfcJoin(channel);
 
-                new Timer(streamTimer, null, TimeSpan.Zero, TimeSpan.FromMinutes(3));
+                timer = new Timer(streamTimer, null, TimeSpan.Zero, TimeSpan.FromMinutes(3));
 
                 irc.Listen();
                 irc.Disconnect();
